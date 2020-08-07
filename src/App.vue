@@ -1,32 +1,25 @@
 <template>
 <div class="container">
-  <span ref='confetti'></span>
-  <Board @winner='fireConfetti'/>
+  <Board />
 </div>
 </template>
 
 <script>
-import Board from './components/Board.vue'
-import { defineComponent } from 'vue'
-import { confetti } from '../node_modules/dom-confetti/src/main.js'
+import Board from './components/Board.vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App',
-  components: {
-    Board
-  },
-  methods: {
-    fireConfetti () {
-      confetti(this.$refs.confetti)
-    }
-  }
-})
+    name: 'App',
+    components: {
+        Board,
+    },
+});
 </script>
 
 <style scoped>
 .container {
-  min-height: 90vh;
-  display: grid;
-  place-items: center;
+    min-height: 90vh;
+    display: grid;
+    place-items: center;
 }
 </style>
