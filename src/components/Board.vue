@@ -9,7 +9,7 @@
     :label="`square-${i}`"
     :value='square'
     @click='markSquare(i)'
-    :disabled='calculateWinner'
+    :winner='calculateWinner'
   />
 </div>
 </template>
