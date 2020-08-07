@@ -25,6 +25,9 @@ export default defineComponent({
     width: 10rem;
     height: 10rem;
     background: none;
+    color: inherit;
+    font-size: 3rem;
+    font-weight: 700;
 }
 
 .square:hover {
