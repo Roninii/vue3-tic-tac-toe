@@ -21,14 +21,22 @@ export default defineComponent({
 
 <style scoped>
 .square {
-    border: 0.1rem solid #000;
+    border: none;
     width: 10rem;
     height: 10rem;
     background: none;
+    color: inherit;
+    font-size: 3rem;
+    font-weight: 700;
 }
 
 .square:hover {
     cursor: pointer;
+}
+
+.square:focus {
+    outline: none;
+    box-shadow: inset 0 0 5px #3a3a3a;
 }
 
 .square:first-child,
