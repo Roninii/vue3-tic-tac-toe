@@ -1,10 +1,10 @@
 <template>
-    <button class='square' :name="label" :aria-label="label" :disabled='winner || value'>
+    <button class='square' :name="label" :disabled='winner || value'>
         {{ value }}
     </button>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -36,7 +36,7 @@ export default defineComponent({
 
 .square:focus {
     outline: none;
-    box-shadow: inset 0 0 5px #3a3a3a;
+    background: #41b88330;
 }
 
 .square:first-child,
