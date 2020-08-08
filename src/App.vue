@@ -18,8 +18,9 @@ export default defineComponent({
 
 <style scoped>
 .container {
-    min-height: 90vh;
     display: grid;
     place-items: center;
+    gap: 4rem;
+    position: relative;
 }
 </style>
