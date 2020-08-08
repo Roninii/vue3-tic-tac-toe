@@ -1,5 +1,10 @@
 <template>
-<h1 v-if='calculateWinner'>Winner: {{ calculateWinner }}</h1>
+<header v-if='calculateWinner' class='header'>
+    <h1>
+        {{ calculateWinner }}
+    </h1>
+    <button class='reset' @click='reset'>Play Again</button>
+</header>
 <h1 v-else>Next Up: {{ playerValue }}</h1>
 <span ref='boardRef' class='confetti-origin'></span>
 <div class='board'>
@@ -28,7 +33,7 @@ export default defineComponent({
 
     setup() {
         const boardRef = ref(null);
-        const { board, playerValue, markSquare } = useBoard();
+        const { board, playerValue, markSquare, reset } = useBoard();
         const { calculateWinner } = useCalculateWinner(board, boardRef);
 
         return {
@@ -37,6 +42,7 @@ export default defineComponent({
             markSquare,
             calculateWinner,
             boardRef,
+            reset
         };
     },
 });
@@ -51,10 +57,17 @@ function useBoard() {
         board.value = boardCopy;
         playerValue.value === 'X' ? (playerValue.value = 'O') : (playerValue.value = 'X');
     };
+
+    const reset = () => {
+        board.value = Array(9).fill(null)
+        playerValue.value = 'X'
+        }
+
     return {
         board,
         markSquare,
         playerValue,
+        reset
     };
 }
 
@@ -79,9 +92,12 @@ function useCalculateWinner(board, boardRef) {
                 board.value[a] === board.value[c]
             ) {
                 fireConfetti(boardRef);
-                return board.value[a];
+                return `${board.value[a]} Wins!`;
             }
         }
+
+        // if board is full, end game in tie.
+        if(board.value.every(val => val)) return 'Tie!'
 
         return null;
     });
@@ -92,12 +108,25 @@ function useCalculateWinner(board, boardRef) {
 }
 
 function fireConfetti(boardRef) {
-    console.log(boardRef.value);
     confetti(boardRef.value);
 }
 </script>
 
 <style scoped>
+.header {
+    display: grid;
+    gap: 1rem;
+}
+
+.reset {
+    background: #35495e;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    color: white;
+    text-transform: uppercase;
+}
+
 .board {
     position: relative;
     display: grid;
