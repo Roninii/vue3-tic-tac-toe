@@ -1,20 +1,20 @@
 <template>
-    <button class='square' :name="label" :disabled='winner || value'>
-        {{ value }}
-    </button>
+    <button class="square" :name="label" :disabled="winner || value">{{ value }}</button>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import { defineComponent, PropType, toRefs } from 'vue';
 
 export default defineComponent({
     props: {
-        label: String,
+        label: {
+            type: String,
+        },
         value: {
             type: String,
             default: ' ',
         },
-        winner: null,
+        winner: { type: String },
     },
 });
 </script>

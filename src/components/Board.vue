@@ -1,24 +1,22 @@
 <template>
-<header v-if='calculateWinner' class='header'>
-    <h1>
-        {{ calculateWinner }}
-    </h1>
-    <button class='reset' @click='reset'>Play Again</button>
-</header>
-<h1 v-else>Next Up: {{ playerValue }}</h1>
-<span ref='boardRef' class='confetti-origin'></span>
-<div class='board'>
-    <span class='vertical-line-1'></span>
-    <span class='vertical-line-2'></span>
-    <Square
-        v-for='(square, i) in board'
-        :key='`square-${i}`'
-        :label="`square-${i}`"
-        :value='square'
-        @click='markSquare(i)'
-        :winner='calculateWinner'
-    />
-</div>
+    <header v-if="calculateWinner" class="header">
+        <h1>{{ calculateWinner }}</h1>
+        <button class="reset" @click="reset">Play Again</button>
+    </header>
+    <h1 v-else>Next Up: {{ playerValue }}</h1>
+    <span ref="boardRef" class="confetti-origin"></span>
+    <div class="board">
+        <span class="vertical-line-1"></span>
+        <span class="vertical-line-2"></span>
+        <Square
+            v-for="(square, i) in board"
+            :key="`square-${i}`"
+            :label="`square-${i}`"
+            :value="square"
+            @click="markSquare(i)"
+            :winner="calculateWinner"
+        />
+    </div>
 </template>
 
 <script>
