@@ -4,7 +4,7 @@
 </div>
 </template>
 
-<script>
+<script lang='ts'>
 import Board from './components/Board.vue';
 import { defineComponent } from 'vue';
 
