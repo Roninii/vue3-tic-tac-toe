@@ -19,10 +19,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Square from './Square.vue';
-import { defineComponent, ref, computed, onMounted } from 'vue';
-import { confetti } from '../../node_modules/dom-confetti/src/main.js';
+import { defineComponent, ref } from 'vue';
+
+import { useBoard } from '../composables/useBoard';
+import { useCalculateWinner } from '../composables/useCalculateWinner';
 
 export default defineComponent({
     components: {
@@ -30,7 +32,7 @@ export default defineComponent({
     },
 
     setup() {
-        const boardRef = ref(null);
+        const boardRef: object = ref(null);
         const { board, playerValue, markSquare, reset } = useBoard();
         const { calculateWinner } = useCalculateWinner(board, boardRef);
 
@@ -44,70 +46,6 @@ export default defineComponent({
         };
     },
 });
-
-function useBoard() {
-    const board = ref(Array(9).fill(null));
-    const playerValue = ref('X');
-
-    const markSquare = (i) => {
-        const boardCopy = board.value.slice();
-        boardCopy[i] = playerValue.value;
-        board.value = boardCopy;
-        playerValue.value === 'X' ? (playerValue.value = 'O') : (playerValue.value = 'X');
-    };
-
-    const reset = () => {
-        board.value = Array(9).fill(null);
-        playerValue.value = 'X';
-    };
-
-    return {
-        board,
-        markSquare,
-        playerValue,
-        reset,
-    };
-}
-
-function useCalculateWinner(board, boardRef) {
-    const calculateWinner = computed(() => {
-        const lines = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ];
-
-        for (let i = 0; i < lines.length; i++) {
-            const [a, b, c] = lines[i];
-            if (
-                board.value[a] &&
-                board.value[a] === board.value[b] &&
-                board.value[a] === board.value[c]
-            ) {
-                fireConfetti(boardRef);
-                return `${board.value[a]} Wins!`;
-            }
-        }
-
-        // if board is full, end game in tie.
-        if (board.value.every((val) => val)) return 'Tie!';
-
-        return null;
-    });
-
-    return {
-        calculateWinner,
-    };
-}
-
-function fireConfetti(boardRef) {
-    confetti(boardRef.value);
-}
 </script>
 
 <style scoped>
