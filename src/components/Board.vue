@@ -8,16 +8,16 @@
 <h1 v-else>Next Up: {{ playerValue }}</h1>
 <span ref='boardRef' class='confetti-origin'></span>
 <div class='board'>
-<span class='vertical-line-1'></span>
-<span class='vertical-line-2'></span>
-  <Square
-    v-for='(square, i) in board'
-    :key='`square-${i}`'
-    :label="`square-${i}`"
-    :value='square'
-    @click='markSquare(i)'
-    :winner='calculateWinner'
-  />
+    <span class='vertical-line-1'></span>
+    <span class='vertical-line-2'></span>
+    <Square
+        v-for='(square, i) in board'
+        :key='`square-${i}`'
+        :label="`square-${i}`"
+        :value='square'
+        @click='markSquare(i)'
+        :winner='calculateWinner'
+    />
 </div>
 </template>
 
@@ -42,7 +42,7 @@ export default defineComponent({
             markSquare,
             calculateWinner,
             boardRef,
-            reset
+            reset,
         };
     },
 });
@@ -59,15 +59,15 @@ function useBoard() {
     };
 
     const reset = () => {
-        board.value = Array(9).fill(null)
-        playerValue.value = 'X'
-        }
+        board.value = Array(9).fill(null);
+        playerValue.value = 'X';
+    };
 
     return {
         board,
         markSquare,
         playerValue,
-        reset
+        reset,
     };
 }
 
@@ -97,7 +97,7 @@ function useCalculateWinner(board, boardRef) {
         }
 
         // if board is full, end game in tie.
-        if(board.value.every(val => val)) return 'Tie!'
+        if (board.value.every((val) => val)) return 'Tie!';
 
         return null;
     });
@@ -134,14 +134,17 @@ function fireConfetti(boardRef) {
     grid-template-rows: repeat(3, 1fr);
 }
 
-.board::before, .board::after {
-    background: linear-gradient(to right,  #41b883, #35495e)
+.board::before,
+.board::after {
+    background: linear-gradient(to right, #41b883, #35495e);
 }
-.vertical-line-1, .vertical-line-2 {
-    background: linear-gradient(to right,  #41b883, #35495e)
+.vertical-line-1,
+.vertical-line-2 {
+    background: linear-gradient(to right, #41b883, #35495e);
 }
 
-.board::before, .board::after {
+.board::before,
+.board::after {
     content: '';
     width: 100%;
     height: 5px;
@@ -159,7 +162,8 @@ function fireConfetti(boardRef) {
     position: absolute;
 }
 
-.vertical-line-1, .vertical-line-2 {
+.vertical-line-1,
+.vertical-line-2 {
     position: absolute;
     width: 100%;
     height: 5px;
@@ -175,6 +179,4 @@ function fireConfetti(boardRef) {
 .vertical-line-2 {
     left: 66%;
 }
-
-
 </style>
